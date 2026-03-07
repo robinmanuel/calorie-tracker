@@ -1,36 +1,40 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import useRecords from "../hooks/useRecords";
+import RecordForm from "../components/RecordForm";
+import RecordsList from "../components/RecordsList";
+import LineStatChart from "../components/Charts";
+
 
 function Dashboard() {
-  const [records, setRecords] = useState([]);
+  const { sortedRecords, addRecord, deleteRecord } = useRecords();
+  const chartConfig = [
+  { key: "calories", title: "Calories Over Time", color: "#ff7300" },
+  { key: "steps", title: "Steps Over Time", color: "#8884d8" },
+  { key: "weight", title: "Weight Over Time", color: "#387908" }
+];
+  
+return (
+    <div style={{ padding: "30px" }}>
+      <h2>Add Daily Record</h2>
 
-  const getRecords = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/records", {
-        headers: { token: localStorage.token }
-      });
+      <RecordForm onSubmit={addRecord} />
 
-      setRecords(res.data);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-
-  useEffect(() => {
-    getRecords();
-  }, []);
-
-  return (
-    <div>
       <h2>Your Records</h2>
 
-      {records.map((record) => (
-        <div key={record.record_id}>
-          <p>Type: {record.type}</p>
-          <p>Value: {record.value}</p>
-          <p>Date: {record.date}</p>
-          <hr />
-        </div>
+      <RecordsList
+        records={sortedRecords}
+        onDelete={deleteRecord}
+      />
+
+      <h2>Progress Charts</h2>
+
+      {chartConfig.map((chart) => (
+        <LineStatChart
+          key={chart.key}
+          data={sortedRecords}
+          dataKey={chart.key}
+          title={chart.title}
+          color={chart.color}
+        />
       ))}
     </div>
   );
