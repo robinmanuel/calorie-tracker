@@ -1,17 +1,33 @@
-import Register from "./pages/register";
-import Login from "./pages/login";
-import Dashboard from "./pages/dashboard";
+import { Routes, Route } from "react-router-dom";
+
+import LoginPage from "./modules/auth/pages/LoginPage";
+import RegisterPage from "./modules/auth/pages/RegisterPage";
+import DashboardPage from "./modules/records/pages/DashboardPage";
+
+import ProtectedRoute from "./shared/routes/ProtectedRoute";
 
 function App() {
-  return (
-    <div>
-      <h1>Calorie & Expense Tracker</h1>
 
-      <Register />
-      <Login />
-      <Dashboard />
-    </div>
+  return (
+
+    <Routes>
+
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+
+    </Routes>
+
   );
+
 }
 
 export default App;
