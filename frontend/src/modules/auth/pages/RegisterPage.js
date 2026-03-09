@@ -1,33 +1,43 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../../../shared/services/apiClient";
+import { Link } from "react-router-dom";
 
 function RegisterPage() {
 
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
+    username: "",
     email: "",
     password: ""
   });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value
     });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
 
       const res = await apiClient.post("/auth/register", form);
 
-      localStorage.setItem("token", res.data.token);
+      // Ensure token exists before saving
+      if (res.data && res.data.token) {
 
-      navigate("/dashboard");
+        localStorage.removeItem("token");   // clear any old/bad token
+        localStorage.setItem("token", res.data.token);
+
+        navigate("/dashboard");
+
+      } else {
+        alert("Registration succeeded");
+      }
 
     } catch (err) {
       console.error(err.response?.data || err.message);
@@ -44,10 +54,20 @@ function RegisterPage() {
       <form onSubmit={handleSubmit}>
 
         <input
+          name="username"
+          placeholder="Username"
+          value={form.username}
+          onChange={handleChange}
+          required
+        />
+
+        <input
           name="email"
+          type="email"
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
+          required
         />
 
         <input
@@ -56,6 +76,7 @@ function RegisterPage() {
           placeholder="Password"
           value={form.password}
           onChange={handleChange}
+          required
         />
 
         <button type="submit">
@@ -63,6 +84,11 @@ function RegisterPage() {
         </button>
 
       </form>
+
+      <p>
+  Already have an account? 
+  <Link to="/login">Login</Link>
+    </p>
 
     </div>
 

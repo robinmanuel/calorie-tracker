@@ -2,7 +2,7 @@ import LoginForm from "../components/LoginForm";
 import { Link } from "react-router-dom";
 function LoginPage() {
   return (
-    <div>
+    <div className="auth-container">
       <h2>Login</h2>
       <LoginForm />
 

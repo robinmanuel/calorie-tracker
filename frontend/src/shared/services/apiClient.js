@@ -4,16 +4,14 @@ const apiClient = axios.create({
   baseURL: "http://localhost:5000"
 });
 
-apiClient.interceptors.request.use(config => {
-
+apiClient.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
   if (token) {
-    config.headers.token = token;   // important change
+    config.headers["token"] = token;   // IMPORTANT: backend expects 'token'
   }
 
   return config;
-
 });
 
 export default apiClient;

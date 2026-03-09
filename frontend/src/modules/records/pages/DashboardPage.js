@@ -28,30 +28,25 @@ function DashboardPage() {
   }, []);
 
   return (
+<>
+  <Navbar />
 
-  <>
-    <Navbar />
+  <div className="dashboard">
 
-    <div className="dashboard">
+    <StatCards records={records} />
 
-      <h1 className="dashboard-title">Dashboard</h1>
+    <RecordForm fetchRecords={fetchRecords} />
 
-      <StatCards records={records} />
+    <RecordsTable
+      records={records.slice(0,5)}
+      fetchRecords={fetchRecords}
+    />
 
-      <div className="dashboard-grid">
+    <ChartsSection records={records} />
 
-        <div>
-          <RecordForm fetchRecords={fetchRecords}/>
-          <RecordsTable records={records} fetchRecords={fetchRecords}/>
-        </div>
+  </div>
 
-        <ChartsSection records={records}/>
-
-      </div>
-
-    </div>
-  </>
-
+</>
 );}
 
 export default DashboardPage;

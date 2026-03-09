@@ -10,14 +10,30 @@ function RecordForm({ fetchRecords }) {
     date: ""
   });
 
-  const handleChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await apiClient.post("/records", form);
+    // prevent empty submission
+    if (!form.date || !form.steps || !form.calories || !form.weight) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    const payload = {
+      date: form.date,
+      steps: Number(form.steps),
+      calories: Number(form.calories),
+      weight: Number(form.weight)
+    };
+
+    await apiClient.post("/records", payload);
 
     setForm({
       steps: "",
@@ -30,21 +46,42 @@ function RecordForm({ fetchRecords }) {
   };
 
   return (
+    <form className="record-form" onSubmit={handleSubmit}>
 
-    <form onSubmit={handleSubmit}>
+      <input
+        type="date"
+        name="date"
+        value={form.date}
+        onChange={handleChange}
+      />
 
-      <input name="steps" placeholder="Steps" onChange={handleChange} />
+      <input
+        type="number"
+        name="steps"
+        placeholder="Steps"
+        value={form.steps}
+        onChange={handleChange}
+      />
 
-      <input name="calories" placeholder="Calories" onChange={handleChange} />
+      <input
+        type="number"
+        name="calories"
+        placeholder="Calories"
+        value={form.calories}
+        onChange={handleChange}
+      />
 
-      <input name="weight" placeholder="Weight" onChange={handleChange} />
+      <input
+        type="number"
+        name="weight"
+        placeholder="Weight"
+        value={form.weight}
+        onChange={handleChange}
+      />
 
-      <input type="date" name="date" onChange={handleChange} />
-
-      <button>Add Record</button>
+      <button type="submit">Add</button>
 
     </form>
-
   );
 }
 
