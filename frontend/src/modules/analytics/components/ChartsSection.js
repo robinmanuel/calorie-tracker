@@ -19,7 +19,7 @@ function ChartsSection({ records }) {
 
   return (
 
-    <div className="charts-section">
+    <div className="charts-grid">
 
       {/* Steps Chart */}
       <div className="chart-card">
@@ -31,7 +31,7 @@ function ChartsSection({ records }) {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="steps" stroke="#3b82f6" strokeWidth={3} dot={false}/>
+            <Line type="monotone" dataKey="steps" stroke="#3b82f6" strokeWidth={3} dot={false} animationDuration={1200}/>
           </LineChart>
         </ResponsiveContainer>
 
@@ -47,7 +47,7 @@ function ChartsSection({ records }) {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="calories" stroke="#22c55e" strokeWidth={3} dot={false}/>
+            <Line type="monotone" dataKey="calories" stroke="#22c55e" strokeWidth={3} dot={false} animationDuration={1200}/>
           </LineChart>
         </ResponsiveContainer>
 
@@ -63,7 +63,7 @@ function ChartsSection({ records }) {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="weight" stroke="#f59e0b" strokeWidth={3} dot={false}/>
+            <Line type="monotone" dataKey="weight" stroke="#f59e0b" strokeWidth={3} dot={false} animationDuration={1200}/>
           </LineChart>
         </ResponsiveContainer>
 

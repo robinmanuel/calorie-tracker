@@ -13,7 +13,7 @@ function Navbar() {
 
     <nav className="navbar">
 
-      <h2 className="logo">Dashboard</h2>
+      <h2 className="logo">DASHBOARD</h2>
 
       <button className="logout-btn" onClick={handleLogout}>
         Logout

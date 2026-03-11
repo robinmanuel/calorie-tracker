@@ -37,12 +37,14 @@ function DashboardPage() {
 
     <RecordForm fetchRecords={fetchRecords} />
 
+    
+
+    <ChartsSection records={records} />
+
     <RecordsTable
       records={records.slice(0,5)}
       fetchRecords={fetchRecords}
     />
-
-    <ChartsSection records={records} />
 
   </div>
 
