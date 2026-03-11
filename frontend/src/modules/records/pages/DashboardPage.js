@@ -7,7 +7,7 @@ import ChartsSection from "../../analytics/components/ChartsSection";
 import StatCards from "../components/StatCards";
 import Navbar from "../../../shared/components/Navbar";
 
-import "../styles/dashboard.css";
+import "../../../styles/main.css";
 
 function DashboardPage() {
 

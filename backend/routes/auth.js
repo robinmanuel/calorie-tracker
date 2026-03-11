@@ -28,8 +28,14 @@ router.post("/register", async (req, res) => {
       [username, email, hashedPassword]
     );
 
-    res.json(newUser.rows[0]);
-  } catch (err) {
+  const token = jwt.sign(
+  { user_id: newUser.rows[0].id },
+  process.env.JWT_SECRET,
+  { expiresIn: "1h" }
+  );
+  res.json({ token });
+  
+} catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
   }

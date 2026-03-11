@@ -12,7 +12,7 @@ function RecordsTable({ records, fetchRecords }) {
 
   return (
 
-    <table>
+    <table className="records-table">
 
       <thead>
         <tr>
@@ -36,7 +36,7 @@ function RecordsTable({ records, fetchRecords }) {
             <td>{r.weight}</td>
 
             <td>
-              <button onClick={() => deleteRecord(r.id)}>
+              <button className="delete-btn" onClick={() => deleteRecord(r.id)}>
                 Delete
               </button>
             </td>

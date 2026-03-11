@@ -10,7 +10,7 @@ import {
 
 function ChartsSection({ records }) {
 
-  const chartData = records.map(r => ({
+  const chartData = records.slice(0,30).reverse().map(r => ({
     date: new Date(r.date).toLocaleDateString(),
     steps: Number(r.steps),
     calories: Number(r.calories),
@@ -19,10 +19,10 @@ function ChartsSection({ records }) {
 
   return (
 
-    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:"20px"}}>
+    <div className="charts-section">
 
       {/* Steps Chart */}
-      <div>
+      <div className="chart-card">
         <h3>Steps Trend</h3>
 
         <ResponsiveContainer width="100%" height={250}>
@@ -31,14 +31,14 @@ function ChartsSection({ records }) {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="steps" />
+            <Line type="monotone" dataKey="steps" stroke="#3b82f6" strokeWidth={3} dot={false}/>
           </LineChart>
         </ResponsiveContainer>
 
       </div>
 
       {/* Calories Chart */}
-      <div>
+      <div className="chart-card">
         <h3>Calories Trend</h3>
 
         <ResponsiveContainer width="100%" height={250}>
@@ -47,14 +47,14 @@ function ChartsSection({ records }) {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="calories" />
+            <Line type="monotone" dataKey="calories" stroke="#22c55e" strokeWidth={3} dot={false}/>
           </LineChart>
         </ResponsiveContainer>
 
       </div>
 
       {/* Weight Chart */}
-      <div>
+      <div className="chart-card">
         <h3>Weight Trend</h3>
 
         <ResponsiveContainer width="100%" height={250}>
@@ -63,7 +63,7 @@ function ChartsSection({ records }) {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="weight" />
+            <Line type="monotone" dataKey="weight" stroke="#f59e0b" strokeWidth={3} dot={false}/>
           </LineChart>
         </ResponsiveContainer>
 
