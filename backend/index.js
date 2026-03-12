@@ -8,7 +8,7 @@ const recordRoutes = require("./routes/records");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({origin:"*"}));
 app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/records", recordRoutes);
