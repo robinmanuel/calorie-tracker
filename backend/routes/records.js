@@ -2,12 +2,38 @@ const router = require("express").Router();
 const pool = require("../db");
 const authorize = require("../middleware/authorize");
 
-// CREATE RECORD
+// CREATE OR UPDATE RECORD
 router.post("/", authorize, async (req, res) => {
   try {
+
     const user_id = req.user;
     const { date, calories, expenditure, steps, weight } = req.body;
 
+    // Check if record exists for that date
+    const existingRecord = await pool.query(
+      `SELECT * FROM records 
+       WHERE user_id = $1 AND date = $2`,
+      [user_id, date]
+    );
+
+    // If record exists → UPDATE
+    if (existingRecord.rows.length > 0) {
+
+      const updatedRecord = await pool.query(
+        `UPDATE records
+         SET calories = $1,
+             expenditure = $2,
+             steps = $3,
+             weight = $4
+         WHERE user_id = $5 AND date = $6
+         RETURNING *`,
+        [calories, expenditure, steps, weight, user_id, date]
+      );
+
+      return res.json(updatedRecord.rows[0]);
+    }
+
+    // If record does not exist → INSERT
     const newRecord = await pool.query(
       `INSERT INTO records (user_id, date, calories, expenditure, steps, weight)
        VALUES ($1, $2, $3, $4, $5, $6)
@@ -16,6 +42,7 @@ router.post("/", authorize, async (req, res) => {
     );
 
     res.json(newRecord.rows[0]);
+
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

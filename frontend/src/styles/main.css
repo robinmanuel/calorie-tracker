@@ -323,6 +323,10 @@ AUTH PAGE
   cursor:pointer;
 }
 
+.auth-container{
+  animation: floatCard 5s ease-in-out infinite;
+}
+
 /* =========================
 RESPONSIVE
 ========================= */
