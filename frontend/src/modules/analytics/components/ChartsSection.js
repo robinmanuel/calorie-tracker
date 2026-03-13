@@ -63,7 +63,7 @@ function ChartsSection({ records }) {
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
-            <Line type="monotone" dataKey="weight" stroke="#f59e0b" strokeWidth={3} dot={false} animationDuration={1200}/>
+            <Line type="monotone" dataKey="weight" stroke="#f59e0b" strokeWidth={3} dot={false} />
           </LineChart>
         </ResponsiveContainer>
 
